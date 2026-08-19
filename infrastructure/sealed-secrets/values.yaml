@@ -1,0 +1,29 @@
+# kubeseal defaults to looking for:
+#
+# controller name:      sealed-secrets-controller
+# controller namespace: kube-system
+#
+# Using this name means we don't need extra CLI flags.
+fullnameOverride: sealed-secrets-controller
+
+
+# The controller is very lightweight.
+resources:
+  requests:
+    cpu: 25m
+    memory: 64Mi
+
+  limits:
+    memory: 256Mi
+
+
+# We will integrate this with kube-prometheus-stack later.
+metrics:
+  serviceMonitor:
+    enabled: false
+
+  prometheusRule:
+    enabled: false
+
+  dashboards:
+    create: false
