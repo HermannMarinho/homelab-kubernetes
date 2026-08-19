@@ -5,7 +5,7 @@ namespace: glance
 
 resources:
   - ../../base
-  - ingress.yaml
+  - httproute.yaml
 
 images:
   - name: glanceapp/glance

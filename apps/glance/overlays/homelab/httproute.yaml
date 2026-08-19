@@ -1,0 +1,23 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+
+metadata:
+  name: glance
+
+spec:
+  parentRefs:
+    - name: homelab
+      namespace: gateway
+
+  hostnames:
+    - glance.home.arpa
+
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+
+      backendRefs:
+        - name: glance
+          port: 80
