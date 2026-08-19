@@ -10,7 +10,7 @@ spec:
       namespace: gateway
 
   hostnames:
-    - glance.home.arpa
+    - glance.home.lohanlab.xyz
 
   rules:
     - matches:
