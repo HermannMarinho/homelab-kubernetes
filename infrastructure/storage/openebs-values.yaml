@@ -1,0 +1,46 @@
+# Only install the storage engine we actually need.
+engines:
+  local:
+    hostpath:
+      enabled: true
+
+    lvm:
+      enabled: false
+
+    zfs:
+      enabled: false
+
+    rawfile:
+      enabled: false
+
+  replicated:
+    mayastor:
+      enabled: false
+
+
+# OpenEBS includes its own Loki/Alloy stack by default.
+# We will deploy our observability stack separately later.
+loki:
+  enabled: false
+
+alloy:
+  enabled: false
+
+
+# We don't use CSI snapshots with LocalPV Hostpath.
+openebs-crds:
+  csi:
+    volumeSnapshots:
+      enabled: false
+
+
+localpv-provisioner:
+
+  # Don't generate the standard "openebs-hostpath" StorageClass.
+  # We create local-fast and local-bulk ourselves.
+  hostpathClass:
+    enabled: false
+
+  # No telemetry needed from a homelab provisioner.
+  analytics:
+    enabled: false
