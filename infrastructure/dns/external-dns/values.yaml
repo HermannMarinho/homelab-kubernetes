@@ -23,7 +23,7 @@ extraArgs:
   - --rfc2136-port=53
   - --rfc2136-zone=home.lohanlab.xyz
   - --rfc2136-tsig-secret-alg=hmac-sha256
-  - --rfc2136-axfr
+  - --rfc2136-tsig-axfr
 
 env:
   - name: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
