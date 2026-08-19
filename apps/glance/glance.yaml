@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: glance
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/HermannMarinho/homelab-k8s.git
+    targetRevision: main
+    path: apps/glance/overlays/homelab
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: glance
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true

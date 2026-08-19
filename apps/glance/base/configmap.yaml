@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: myapp
-
-data:
-  TZ: "America/Fortaleza"
-  LOG_LEVEL: "info"
