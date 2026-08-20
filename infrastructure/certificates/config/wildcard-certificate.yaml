@@ -9,7 +9,7 @@ spec:
   secretName: home-wildcard-tls
 
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-production
     kind: ClusterIssuer
 
   dnsNames:
