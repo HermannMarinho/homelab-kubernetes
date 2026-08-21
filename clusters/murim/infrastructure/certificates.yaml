@@ -15,7 +15,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/HermannMarinho/homelab-k8s.git
+    repoURL: https://github.com/HermannMarinho/homelab-kubernetes.git
     targetRevision: main
     path: infrastructure/certificates/config
 

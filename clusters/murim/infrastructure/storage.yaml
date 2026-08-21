@@ -20,7 +20,7 @@ spec:
           - $values/infrastructure/storage/openebs-values.yaml
 
     # Our Murim-specific configuration + Helm values
-    - repoURL: https://github.com/HermannMarinho/homelab-k8s.git
+    - repoURL: https://github.com/HermannMarinho/homelab-kubernetes.git
       targetRevision: main
       ref: values
       path: infrastructure/storage

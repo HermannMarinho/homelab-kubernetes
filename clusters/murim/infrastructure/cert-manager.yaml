@@ -25,7 +25,7 @@ spec:
         valueFiles:
           - $values/infrastructure/certificates/cert-manager/values.yaml
 
-    - repoURL: https://github.com/HermannMarinho/homelab-k8s.git
+    - repoURL: https://github.com/HermannMarinho/homelab-kubernetes.git
       targetRevision: main
       ref: values
 

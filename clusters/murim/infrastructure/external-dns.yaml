@@ -22,7 +22,7 @@ spec:
         valueFiles:
           - $values/infrastructure/dns/external-dns/values.yaml
 
-    - repoURL: https://github.com/HermannMarinho/homelab-k8s.git
+    - repoURL: https://github.com/HermannMarinho/homelab-kubernetes.git
       targetRevision: main
       ref: values
       path: infrastructure/dns/external-dns
