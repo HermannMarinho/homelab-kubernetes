@@ -11,7 +11,7 @@ registry: txt
 txtOwnerId: murim
 
 domainFilters:
-  - home.lohanlab.xyz
+  - home.example.com
 
 gatewayNamespace: gateway
 
@@ -19,9 +19,9 @@ triggerLoopOnEvent: true
 
 extraArgs:
   - --gateway-name=homelab
-  - --rfc2136-host=192.168.15.78
+  - --rfc2136-host=192.0.2.53
   - --rfc2136-port=53
-  - --rfc2136-zone=home.lohanlab.xyz
+  - --rfc2136-zone=home.example.com
   - --rfc2136-tsig-secret-alg=hmac-sha256
   - --rfc2136-tsig-axfr
 
