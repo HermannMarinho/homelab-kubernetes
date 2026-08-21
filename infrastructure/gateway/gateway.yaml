@@ -17,7 +17,7 @@ spec:
           from: All
 
     - name: https
-      hostname: "*.home.lohanlab.xyz"
+      hostname: "*.home.example.com"
       protocol: HTTPS
       port: 443
 
