@@ -1,0 +1,36 @@
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+
+# Credentials and private keys
+*.key
+*.pem
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Kubernetes and Talos client configuration
+kubeconfig
+kubeconfig.*
+talosconfig
+talosconfig.*
+
+# Infrastructure state and variable files
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+.terraform/
+
+# Decrypted secret material
+*.dec.yaml
+*.decrypted.yaml
+secrets.yaml
+secret.yaml
+
+# Local tooling
+.idea/
+.vscode/
+.DS_Store
