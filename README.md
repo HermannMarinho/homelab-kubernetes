@@ -1,44 +1,48 @@
-# Kubernetes Homelab GitOps
+# Homelab Kubernetes com GitOps
 
-> Sanitized public reference of a real homelab GitOps environment. The live cluster is reconciled from a separate private repository; this repository is not connected to the production Argo CD instance.
+**Português** | [English](README.en.md)
 
-## Overview
+> Referência pública e sanitizada de um ambiente GitOps real de homelab. O cluster ativo é reconciliado a partir de outro repositório privado; este repositório não está conectado à instância de produção do Argo CD.
 
-This project documents a two-node Proxmox VE homelab running a Talos Linux Kubernetes cluster named `murim`. Infrastructure provisioning and cluster bootstrap are handled with OpenTofu, while workloads and platform components follow a declarative Argo CD and Kustomize workflow.
+> **Transparência sobre o uso de IA:** ferramentas de inteligência artificial generativa foram utilizadas como apoio na elaboração e organização deste README, na sanitização da cópia pública e na tradução da documentação para o inglês. A responsabilidade pela revisão técnica, pelas decisões e pelo conteúdo publicado permanece com o autor do projeto.
 
-The cluster topology used for learning and validation consists of one control-plane node and two worker nodes.
+## Visão geral
 
-## Architecture
+Este projeto documenta um homelab com dois nós Proxmox VE executando um cluster Kubernetes com Talos Linux chamado `murim`. O provisionamento da infraestrutura e a inicialização do cluster são realizados com OpenTofu, enquanto as cargas de trabalho e os componentes de plataforma seguem um fluxo declarativo com Argo CD e Kustomize.
+
+A topologia do cluster utilizada para aprendizado e validação é composta por um nó de control plane e dois nós workers.
+
+## Arquitetura
 
 ```mermaid
 flowchart TD
     P[Proxmox VE] --> T[OpenTofu]
     T --> K[Talos Kubernetes]
-    K --> C[Cilium and Gateway API]
-    K --> A[Argo CD and Kustomize]
+    K --> C[Cilium e Gateway API]
+    K --> A[Argo CD e Kustomize]
     K --> S[OpenEBS Local PV]
-    A --> I[Platform components]
-    A --> W[Applications]
+    A --> I[Componentes da plataforma]
+    A --> W[Aplicações]
 ```
 
-### Platform components
+### Componentes da plataforma
 
-- Cilium CNI with kube-proxy replacement, L2 announcements and Gateway API
-- Argo CD using the App-of-Apps pattern
-- Kustomize bases and environment overlays
-- OpenEBS Local PV storage classes
-- cert-manager with ACME DNS-01
-- ExternalDNS using RFC2136 and TSIG
+- Cilium CNI com substituição do kube-proxy, anúncios L2 e Gateway API
+- Argo CD utilizando o padrão App-of-Apps
+- Bases e overlays de ambiente com Kustomize
+- Classes de armazenamento OpenEBS Local PV
+- cert-manager com ACME DNS-01
+- ExternalDNS utilizando RFC2136 e TSIG
 - Bitnami Sealed Secrets
-- Glance dashboard as an example workload
+- Dashboard Glance como exemplo de aplicação
 
-## Repository layout
+## Estrutura do repositório
 
-| Path | Purpose |
+| Caminho | Finalidade |
 | --- | --- |
-| `clusters/murim/` | Argo CD Applications that compose the cluster |
-| `infrastructure/` | Reusable manifests and Helm values for platform services |
-| `apps/` | Application bases and environment overlays |
+| `clusters/murim/` | Applications do Argo CD que compõem o cluster |
+| `infrastructure/` | Manifests reutilizáveis e valores Helm dos serviços de plataforma |
+| `apps/` | Bases de aplicações e overlays de ambiente |
 
 ```text
 .
@@ -59,33 +63,33 @@ flowchart TD
     └── storage/
 ```
 
-## GitOps model
+## Modelo GitOps
 
-The operational environment uses a private repository as its source of truth. Argo CD watches that repository, renders the declared manifests and reconciles them with the cluster. This public repository is a sanitized portfolio copy and is deliberately disconnected from the live cluster.
+O ambiente operacional utiliza um repositório privado como fonte da verdade. O Argo CD monitora esse repositório, renderiza os manifests declarados e os reconcilia com o cluster. Este repositório público é uma cópia sanitizada para portfólio e está deliberadamente desconectado do cluster ativo.
 
-Changes made here therefore do not trigger synchronization, self-healing or pruning in `murim`.
+Portanto, alterações feitas aqui não acionam sincronização, autorrecuperação ou pruning no cluster `murim`.
 
-Application manifests in this public copy reference this repository so the example remains internally consistent.
+Os manifests de aplicações desta cópia pública referenciam este próprio repositório para manter o exemplo internamente consistente.
 
-## Security and sanitization
+## Segurança e sanitização
 
-- Operational domains, private network endpoints and contact addresses were replaced with documentation values.
-- Sensitive values are represented as `SealedSecret` ciphertext and are bound to a resource name and namespace.
-- The Sealed Secrets controller private key is not stored in this repository.
-- Kubeconfigs, Talos configs, OpenTofu state, private keys and plaintext credentials are intentionally excluded.
-- The operational repository, cluster credentials and persistent data remain private.
+- Domínios operacionais, endpoints da rede privada e endereços de contato foram substituídos por valores de documentação.
+- Valores sensíveis são representados como dados cifrados em recursos `SealedSecret`, vinculados a um nome de recurso e namespace.
+- A chave privada do controlador Sealed Secrets não é armazenada neste repositório.
+- Kubeconfigs, configurações do Talos, estados do OpenTofu, chaves privadas e credenciais em texto aberto são intencionalmente excluídos.
+- O repositório operacional, as credenciais do cluster e os dados persistentes permanecem privados.
 
-Example values used in this repository:
+Valores de exemplo utilizados neste repositório:
 
-| Setting | Example |
+| Configuração | Exemplo |
 | --- | --- |
-| Internal DNS zone | `home.example.com` |
-| DNS server | `192.0.2.53` |
-| ACME contact | `acme@example.com` |
+| Zona DNS interna | `home.example.com` |
+| Servidor DNS | `192.0.2.53` |
+| Contato ACME | `acme@example.com` |
 
-## Rendering the manifests
+## Renderizando os manifests
 
-Install Kustomize and render an overlay locally before applying any changes:
+Instale o Kustomize e renderize localmente um overlay antes de aplicar qualquer alteração:
 
 ```bash
 kustomize build apps/glance/overlays/homelab
@@ -93,16 +97,16 @@ kustomize build infrastructure/gateway
 kustomize build infrastructure/dns/external-dns
 ```
 
-The repository is an architectural reference rather than a turnkey deployment. Replace all example values, regenerate every SealedSecret for your own cluster and review storage/network assumptions before use.
+Este repositório é uma referência de arquitetura, não uma implantação pronta para uso. Substitua todos os valores de exemplo, gere novamente cada `SealedSecret` para o seu próprio cluster e revise as premissas de armazenamento e rede antes de utilizá-lo.
 
-## Current learning roadmap
+## Roteiro atual de aprendizado
 
-- Deploy a metrics and monitoring stack
-- Build dashboards and alerts for nodes and workloads
-- Add OpenTelemetry-based traces where useful
-- Automate load, backup and recovery checks
-- Document operational runbooks and incident procedures
+- Implantar uma stack de métricas e monitoramento
+- Criar dashboards e alertas para nós e cargas de trabalho
+- Adicionar traces baseados em OpenTelemetry quando forem úteis
+- Automatizar testes de carga, backup e recuperação
+- Documentar runbooks operacionais e procedimentos de resposta a incidentes
 
-## Related project
+## Projeto relacionado
 
-The Proxmox and Talos provisioning layer is maintained separately with OpenTofu. Its public portfolio version is sanitized independently because state files and provider credentials require a different security boundary.
+A camada de provisionamento do Proxmox e do Talos é mantida separadamente com OpenTofu. Sua versão pública para portfólio é sanitizada de forma independente, pois arquivos de estado e credenciais de providers exigem uma separação de segurança diferente.
