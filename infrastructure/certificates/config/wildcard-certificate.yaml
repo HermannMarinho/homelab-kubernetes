@@ -13,4 +13,4 @@ spec:
     kind: ClusterIssuer
 
   dnsNames:
-    - "*.home.lohanlab.xyz"
+    - "*.home.example.com"
