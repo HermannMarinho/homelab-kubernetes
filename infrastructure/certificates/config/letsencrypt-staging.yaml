@@ -6,7 +6,7 @@ metadata:
 
 spec:
   acme:
-    email: paivahermann.dev@pm.me
+    email: acme@example.com
 
     server: https://acme-staging-v02.api.letsencrypt.org/directory
 
@@ -16,7 +16,7 @@ spec:
     solvers:
       - selector:
           dnsZones:
-            - home.lohanlab.xyz
+            - home.example.com
 
         dns01:
           cloudflare:
